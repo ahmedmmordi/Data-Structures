@@ -3,7 +3,7 @@
 ## Repository Overview
 This repository is dedicated to the comprehensive exploration and implementation of various data structures, encompassing both primitive and non-primitive, within the realm of the C++ programming language.
 
-We use integers exclusively in these data structure classes for practice, without any templates.
+**Note:** In practical software development, it is common to use templates to create classes that can handle various data types, ensuring adaptability to different data structures. In this repository, we will only implement one class `Vector` as a template, but in real-world scenarios, the `Vector` class and the other data structures would typically be implemented using templates to ensure maximum flexibility and reusability with various data types. With the upcoming data structures, we will only use integers for practice, but you must be aware of real-world scenarios.
 
 ## Structured Sections
 The repository has been meticulously organized into two distinct sections:
