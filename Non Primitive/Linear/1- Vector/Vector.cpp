@@ -3,15 +3,16 @@
 #define endl '\n'
 using namespace std;
 
+template <typename T>
 class Vector {
     private:
-        int *arr {nullptr};
+        T *arr {nullptr};
         int size {0};
         int capacity {0};
 
     public:
         // Default Constructor
-        Vector() : size(0), capacity(10), arr(new int[capacity] {}) {}
+        Vector() : size(0), capacity(10), T(new int[capacity] {}) {}
 
         // Parameterized Constructor
         // Constructs a Vector object with the given size
@@ -33,13 +34,13 @@ class Vector {
         }
 
         // Random access a specific element by its index
-        int Access(int index) {
+        T Access(int index) {
             assert(0<=index and index<size);
             return arr[index];
         }
 
         // Sets the value at the specified index
-        void Set(int index, int value) {
+        void Set(int index, T value) {
             assert(0<=index and index<size);
             arr[index] = value;
         }
@@ -53,7 +54,7 @@ class Vector {
         }
 
         // Adds an element to the front of the vector
-        void Push_Front(int value) {
+        void Push_Front(T value) {
                 if (size==capacity) {
                     Expand();
                 }
@@ -64,8 +65,14 @@ class Vector {
                 ++size;
             }
 
+        // Remove the last element in the vector
+        void Pop_Back() {
+            --size;
+            // Internally, We do not remove it
+        }
+
         // Inserts an element at the specified index, shifting existing elements to the right
-        void Insert_In(int index, int value) {
+        void Insert_In(int index, T value) {
             assert(0<=index and index<size);
             if (size==capacity) {
                 Expand();
@@ -78,9 +85,9 @@ class Vector {
         }
 
         // Deletes the element at the specified index and returns its value
-        int Delete_Position(int index) {
+        T Delete_Position(int index) {
             assert(0<=index and index<size);
-            int val = arr[index];
+            T val = arr[index];
             for (int i=index+1;i<size;++i) {
                 arr[i-1] = arr[i];
             }
@@ -94,7 +101,7 @@ class Vector {
             for (int i=0;i<size-1;++i) {
                 for (int j=0;j<size-i-1;++j) {
                     if (arr[j]>arr[j+1]) {
-                        int temp = arr[j];
+                        T temp = arr[j];
                         arr[j] = arr[j+1];
                         arr[j+1] = temp;
                     }
@@ -108,7 +115,7 @@ class Vector {
             int last = size-1;
             while (first<last) {
                 // Swap
-                int temp = arr[first];
+                T temp = arr[first];
                 arr[first] = arr[last];
                 arr[last] = temp;
                 first++;
@@ -128,7 +135,7 @@ class Vector {
 
         // Searches for a value in the vector, and if found, moves it to the previous position
         // Returns the new index of the value if found, or -1 if not found
-        int Improved_Find(int value) {
+        int Improved_Find(T value) {
             for (int i=0;i<size;++i) {
                 if (arr[i]==value) {
                     if (i==0) {
@@ -136,7 +143,7 @@ class Vector {
                     }
                     else {
                         // Swap
-                        int temp = arr[i];
+                        T temp = arr[i];
                         arr[i] = arr[i-1];
                         arr[i-1] = temp;
                         return i-1;
@@ -147,19 +154,19 @@ class Vector {
         }
 
         // Gets the first element of the vector
-        int Get_Front() {
+        T Get_Front() {
             return arr[0];
         }
 
         // Gets the last element of the vector
-        int Get_Back() {
+        T Get_Back() {
             return arr[size-1];
         }
 
         // Doubles the capacity of the vector by expanding its underlying array
         void Expand() {
             capacity *= 2;
-            int *arr2 = new int[capacity] {};
+            T *arr2 = new int[capacity] {};
             for (int i=0;i<size;++i) {
                 arr2[i] = arr[i];
             }
@@ -169,7 +176,7 @@ class Vector {
 
         // Rotates the elements of the vector one position to the right
         void Rotate_Right() {
-            int last = arr[size-1];
+            T last = arr[size-1];
             for (int i=size-2;i>=0;--i) {
                 arr[i+1] = arr[i];
             }
@@ -178,7 +185,7 @@ class Vector {
 
         // Rotates the elements of the vector one position to the left
         void Rotate_Left() {
-            int first = arr[0];
+            T first = arr[0];
             for (int i=1;i<size;++i) {
                 arr[i-1] = arr[i];
             }
@@ -210,8 +217,7 @@ class Vector {
 int main() {
 
     /// VECTOR ///
-
-    Vector Own(6);
+    Vector<int>Own(6); // Or Vector<int>Own; and then push elements
     for (int i=0;i<6;++i) {
         Own.Set(i, i+1);
         // set(index, value);
@@ -281,6 +287,17 @@ int main() {
     cout << (Own.IsEmpty() ? "No elements." : "There are elements.") << endl;
     Own.Print();
     cout << "The value at position 5 is: " << Own.Access(5) << endl;
+    cout << "-----------------------------------------" << endl;
+
+    cout << "Elements: ";
+    Own.Print();
+    cout << "Back: " << Own.Get_Back() << endl;
+    Own.Pop_Back(); // Remove the last element
+    cout << "Back now: " << Own.Get_Back() << endl;
+    Own.Push_Back(24);
+    cout << "Back now: " << Own.Get_Back() << endl;
+    cout << "Elements now: ";
+    Own.Print();
     cout << "-----------------------------------------" << endl;
 
     return 0;
