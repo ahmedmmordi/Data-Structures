@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cassert>
 #define endl '\n'
 using namespace std;
@@ -12,14 +13,14 @@ class Vector {
 
     public:
         // Default Constructor
-        Vector() : size(0), capacity(10), T(new int[capacity] {}) {}
+        Vector() : size(0), capacity(10), arr(new T[capacity] {}) {}
 
         // Parameterized Constructor
         // Constructs a Vector object with the given size
         Vector(int size) : size(size) {
             if (size<0) size = 1;
             capacity = size+10;
-            arr = new int[capacity] {};
+            arr = new T[capacity] {};
         }
 
         // Destructor to Frees the memory used by the vector
@@ -29,12 +30,12 @@ class Vector {
         }
 
         // Returns the size of the vector
-        int Get_Size() {
+        int Get_Size() const {
             return size;
         }
 
         // Random access a specific element by its index
-        T Access(int index) {
+        T Access(int index) const {
             assert(0<=index and index<size);
             return arr[index];
         }
@@ -46,7 +47,7 @@ class Vector {
         }
 
         // Adds an element to the back of the vector
-        void Push_Back(int value) {
+        void Push_Back(T value) {
             if (size==capacity) {
                 Expand();
             }
@@ -124,7 +125,7 @@ class Vector {
         }
 
         // Searches for a value in the vector and returns its index
-        int Find(int value) {
+        int Find(T value) {
             for (int i=0;i<size;++i) {
                 if (arr[i]==value) {
                     return i;
@@ -154,19 +155,19 @@ class Vector {
         }
 
         // Gets the first element of the vector
-        T Get_Front() {
+        T Get_Front() const {
             return arr[0];
         }
 
         // Gets the last element of the vector
-        T Get_Back() {
+        T Get_Back() const {
             return arr[size-1];
         }
 
         // Doubles the capacity of the vector by expanding its underlying array
         void Expand() {
             capacity *= 2;
-            T *arr2 = new int[capacity] {};
+            T *arr2 = new T[capacity] {};
             for (int i=0;i<size;++i) {
                 arr2[i] = arr[i];
             }
@@ -201,7 +202,7 @@ class Vector {
         }
 
         // Check if the vector is empty
-        bool IsEmpty() {
+        bool IsEmpty() const {
             return size==0;
         }
 
@@ -299,6 +300,26 @@ int main() {
     cout << "Elements now: ";
     Own.Print();
     cout << "-----------------------------------------" << endl;
+
+    // Use templates for flexibility!
+    Vector<double>GPAs;
+    GPAs.Push_Back(2.54);
+    GPAs.Push_Back(3.18);
+    GPAs.Push_Front(3.78);
+    cout << "GPAs are: ";
+    GPAs.Print();
+
+    Vector<string>Names;
+    Names.Push_Back("Robertson");
+    Names.Push_Front("Ahmed");
+    Names.Insert_In(1, "Ali");
+    Names.Push_Back("Angela");
+    Names.Push_Back("Henry");
+    cout << "Names: ";
+    Names.Print();
+    cout << "-----------------------------------------" << endl;
+
+    // You can use the remaining methods normally.
 
     return 0;
 }
