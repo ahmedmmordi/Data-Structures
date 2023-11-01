@@ -63,63 +63,6 @@ class LinkedList {
             ++length;
         }
 
-        // Function to insert a new node at the front of the linked list
-        void Insert_Front(int value) {
-            Node *new_node = new Node(value);
-            if (head==nullptr) {
-                head = new_node;
-                tail = new_node;
-            }
-            else {
-                new_node->next = head;
-                head = new_node;
-            }
-            ++length;
-        }
-
-        void Insert_Position(int index, int value) {
-            assert(index>=0 and index<=length);
-            if (index==0) Insert_Front(value);
-            else if (index==length) Insert_Back(value);
-            else {
-                Node *new_node = new Node(value);
-                Node *now = head;
-                for (int i=0;i<index-1;i++) {
-                    now = now->next;
-                }
-                new_node->next = now->next;
-                now->next = new_node;
-            }
-            ++length;
-        }
-
-        // Function to get the Nth element (1-Based) from the linked list
-        int Get_Nth_Element(int index) {
-            --index;
-            assert(index>=0 and index<length); // To check if the index is in range or not
-            int con = 0;
-            for (Node *now=head;now!=nullptr;now=now->next,++con) {
-                if (con==index) {
-                    return now->data;
-                }
-            }
-            return -1; // Element not found
-            // -1 Just for practice
-        }
-
-        // Function to get the Nth node (1-Based) from the linked list
-        Node *Get_Nth_Node(int index) {
-            --index;
-            assert(index>=0 and index<length);
-            int con = 0;
-            for (Node *now=head;now;now=now->next) {
-                if (++con==index) {
-                    return now;
-                }
-            }
-            return nullptr; // Node not found
-        }
-
         // Function to search for a value in the linked list
         int Search(int value) {
             int position = 0;
@@ -129,36 +72,6 @@ class LinkedList {
                 }
             }
             return -1; // Value not found
-        }
-
-        // Function to search for a value and swap it with the previous node's value if found
-        int Improved_Search(int value) {
-            int position = 0;
-            Node *Previous = nullptr;
-            for (Node *now=head;now;now=now->next,++position) {
-                if (now->data==value) {
-                    if (!Previous) return position;
-                    swap(Previous->data, now->data);
-                    return position-1; // New index
-                }
-                Previous = now;
-            }
-            return -1; // Value not found
-        }
-
-        // Function to search for a value and swap it with the previous node's value if found (alternative implementation)
-        int Improved_Search2(int value) {
-            int position = 0;
-            //                               The order is so important in this
-            for (Node *now=head,*Prev=nullptr; now; Prev=now,now=now->next) {
-                if (now->data==value) {
-                    if (!Prev) return position;
-                    swap(Prev->data, now->data);
-                    return position-1;
-                }
-                ++position;
-            }
-            return -1;
         }
 
         // Function to delete the a specific node (1-Based) from the linked list
@@ -189,16 +102,6 @@ class LinkedList {
                     tail = Previous;
                 }
             }
-        }
-
-        // Function to check if a value exists in the linked list
-        bool Is_Exist(int value) {
-            for (Node *now=head;now!=nullptr;now=now->next) {
-                if (now->data==value) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         // Function to check if the linked list is empty
