@@ -26,7 +26,7 @@ Let's see a simple illustration to understand more:
 
 This non-linear representation emphasizes the branching nature of the binary tree. This hierarchical structure is a powerful and flexible way to organize and represent data, often employed in various algorithms and applications.
 
-## Binary Tree Terminology
+## Tree Terminology
 
 - **Node:** Each element in the tree that holds a value.
 - **Root:** The top-most node in the tree.
