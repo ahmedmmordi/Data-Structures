@@ -67,7 +67,7 @@ Left       Root          Right
               7   6
 */
 
-    // current let's create this tree
+    // Now let's create this tree
     // The root
     Node *root = new Node(1);
 
