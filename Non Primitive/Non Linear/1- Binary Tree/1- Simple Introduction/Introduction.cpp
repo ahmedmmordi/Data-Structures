@@ -16,9 +16,9 @@ class Node {
         }
 };
 
-// V -> means: Value
-// R -> means: Right
-// L -> means: Left
+// V means: Value
+// R means: Right
+// L means: Left
 
 void Print_PreOrder(Node *current) { // Pre-Order (VLR)
     if (current==nullptr) return;
@@ -48,11 +48,17 @@ int main() {
 
     // Let's assume that we have a tree like this
 /*
-Left       Root          Right
+Left       Root       Right
             1
+    ________|________
+    |               |
     2               3
-        4                 5
-                    7           6
+    |___            |____
+        |               |
+        4               5
+                    ____|____
+                    |       |
+                    7       6
 */
 
     // A better illustration
@@ -75,7 +81,7 @@ Left       Root          Right
     root->left = new Node(2);
     root->right = new Node(3);
 
-    // Connecting the nodes
+    // Connecting the remaining nodes
     root->left->right = new Node(4);
     root->right->right = new Node(5);
     root->right->right->right = new Node(6);
