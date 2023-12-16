@@ -21,11 +21,13 @@ class BinarySearchTree {
         Node *Root;
         int length;
 
+        // The next helper functions streamline the code, enhancing readability, maintainability, and breaking down complex operations into smaller parts.
+
         // Depth First Search (DFS) can done by 3 methods
         // 1- Pre-Order: root, left, right
         // 2- In-Order: left, root, right
         // 3- Post-Order: left, right, root
-        // Function to print the elements in ascending order using In-Order traversal
+        // Helper function for assisting PrintDFS in printing the elements in ascending order using In-Order traversal
         void PrintDFS_Helper(Node *Root) {
             if (Root==nullptr) return;
             else {
@@ -35,7 +37,7 @@ class BinarySearchTree {
             }
         }
 
-        // Function for assisting Insert in finding the correct node for new element insertion
+        // Helper function for assisting Insert in finding the correct node for new element insertion
         bool InsertHelper(Node *Root, int value) {
             if (value==Root->data) {
                 return false; // Duplicate value, reject insertion
@@ -218,7 +220,6 @@ int main() {
 
     BST.ClearAll();
     BST.PrintBFS();
-    BST.PrintDFS();
     cout << "Size is: " << BST.Get_Size() << endl;
     cout << "---------------------------\n";
 
