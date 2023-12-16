@@ -71,5 +71,3 @@ This C++ project demonstrates the implementation of a Binary Search Tree (BST). 
 
 - **Parameters:**
   - No additional parameters.
-
-Feel free to use this formatted template for your README file, and customize it further based on your project's specifics.
