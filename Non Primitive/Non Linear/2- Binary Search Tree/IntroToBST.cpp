@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#define endl '\n'
 using namespace std;
 
 class BinarySearchTree {
@@ -18,10 +19,10 @@ class BinarySearchTree {
                     this->right = nullptr;
                 }
         };
-        Node *Root;
-        int length;
+        Node *Root; // Root of the BST
+        int length; // Number of elements in the BST
 
-        // The next helper functions streamline the code, enhancing readability, maintainability, and breaking down complex operations into smaller parts.
+        // The next helper functions streamline the code, enhancing readability, maintainability, and breaking down complex operations into smaller parts
 
         // Depth First Search (DFS) can done by 3 methods
         // 1- Pre-Order: root, left, right
@@ -40,7 +41,7 @@ class BinarySearchTree {
         // Helper function for assisting Insert in finding the correct node for new element insertion
         bool InsertHelper(Node *Root, int value) {
             if (value==Root->data) {
-                return false; // Duplicate value, reject insertion
+                throw invalid_argument("Duplicate value"); // Duplicate value, reject insertion
             }
             else if (value<Root->data) {
                 if (Root->left==nullptr) {
@@ -74,6 +75,23 @@ class BinarySearchTree {
             ClearAll_Helper(Root->left);
             ClearAll_Helper(Root->right);
             delete Root;
+        }
+
+        // Helper function to delete a specific leaf node with a given value
+        void DeleteLeaf_Helper(Node *&Root, int value) {
+            if (Root==nullptr) return;
+            else if (Root->left==nullptr and Root->right==nullptr and Root->data==value) { // It is the required leaf
+                delete Root;
+                Root = nullptr; // Set the parent's link to null
+                return;
+            }
+            // This check to see if the value is found before recursive calls
+            if (value<Root->data) {
+                DeleteLeaf_Helper(Root->left, value);
+            }
+            else {
+                DeleteLeaf_Helper(Root->right, value);
+            }
         }
 
     public:
@@ -167,14 +185,26 @@ class BinarySearchTree {
         bool IsEmpty() {
             return Root==nullptr;
         }
+
+        // Function to delete a specific leaf node with a given value
+        void DeleteLeaf(int value) {
+            if (this->IsEmpty()) {
+                throw logic_error("Cannot delete from an empty BST");
+            }
+            else {
+                DeleteLeaf_Helper(Root, value);
+                --this->length;
+            }
+        }
 };
 
 int main() {
 
     // This is a simple BST
     // You should not insert duplicates
-    // You should not insert element between two existed ones
     // Insert only left or right
+    // You should not insert element between two existed ones
+    // You should not delete any node but the leaf one
 
     BinarySearchTree BST;
 
@@ -187,8 +217,7 @@ int main() {
     BST.Insert(6);
     BST.Insert(3);
     BST.Insert(1);
-    BST.Insert(1);
-    BST.Insert(1);
+    // BST.Insert(1); // It will throw an exception if you try to run it
     BST.Insert(7);
     BST.Insert(5);
 
@@ -218,9 +247,30 @@ int main() {
     BST.PrintBFS();
     cout << "---------------------------\n";
 
+    BST.DeleteLeaf(3);
+    BST.DeleteLeaf(5);
+    BST.DeleteLeaf(1);
+    cout << "The levels became:\n";
+    BST.PrintBFS();
+
+/*
+           4
+         /   \
+        2     6
+       /       \
+      1         7
+*/
+
+    cout << "Size is: " << BST.Get_Size() << endl;
+    cout << "Maximum element is: " << BST.Get_Max() << endl;
+    cout << "Minimum element is: " << BST.Get_Min() << endl;
+
+    cout << "---------------------------\n";
+
     BST.ClearAll();
     BST.PrintBFS();
     cout << "Size is: " << BST.Get_Size() << endl;
+    // BST.DeleteLeaf(1); // It will throw an exception if you try to run it
     cout << "---------------------------\n";
 
     return 0;
