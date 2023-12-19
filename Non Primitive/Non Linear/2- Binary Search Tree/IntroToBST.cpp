@@ -257,8 +257,8 @@ int main() {
            4
          /   \
         2     6
-       /       \
-      1         7
+               \
+                7
 */
 
     cout << "Size is: " << BST.Get_Size() << endl;
